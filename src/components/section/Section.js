@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Fade } from "react-awesome-reveal";
 
 function Section({
   title,
@@ -10,18 +11,21 @@ function Section({
 }) {
   return (
     <Wrap bgImage={backgroundImg}>
-      <ItemText>
-        <h1>{title}</h1>
-        <p>{description}</p>
-      </ItemText>
-
-      <Buttons>
-        <ButtonGroup>
-          <LeftButton>{leftButton}</LeftButton>
-          {rightButton && <RightButton>{rightButton}</RightButton>}
-        </ButtonGroup>
-        <DownArrow src="/images/down-arrow.svg" />
-      </Buttons>
+      <Fade bottom>
+        <ItemText>
+          <h1>{title}</h1>
+          <p>{description}</p>
+        </ItemText>
+      </Fade>
+      <Fade bottom>
+        <Buttons>
+          <ButtonGroup>
+            <LeftButton>{leftButton}</LeftButton>
+            {rightButton && <RightButton>{rightButton}</RightButton>}
+          </ButtonGroup>
+          <DownArrow src="/images/down-arrow.svg" />
+        </Buttons>
+      </Fade>
     </Wrap>
   );
 }
@@ -29,10 +33,9 @@ function Section({
 export default Section;
 
 const Wrap = styled.div`
+  z-index: -1;
   width: 100vw;
   height: 100vh;
-  overflow-x: hidden;
-  ${"" /* background: orange;  */}
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -41,16 +44,18 @@ const Wrap = styled.div`
   flex-direction: column;
   justify-content: space-between; //vertical alignments
   align-items: center; //horizontal alignments
+  scroll-snap-align: start;
 `;
 
 const ItemText = styled.div`
   padding-top: 15vh;
+  text-align: center;
 `;
 
 const ButtonGroup = styled.div`
   display: flex;
   margin-bottom: 30px;
-  @media (max-width: 760px) {
+  @media (max-width: 768px) {
     flex-direction: column;
   }
 `;
@@ -84,4 +89,7 @@ const DownArrow = styled.img`
   cursor: pointer;
 `;
 
-const Buttons = styled.div``;
+const Buttons = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
